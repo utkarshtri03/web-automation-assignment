@@ -17,14 +17,18 @@ class SwapDefillamaScraper {
     this.page = await this.browser.newPage();
   }
 
+  //Opening the url swap.defillama
   async goToSwapDefillama() {
     await this.page.goto('https://swap.defillama.com');
   }
 
+  //filling the form
   async fillForm() {
+    //Entering Arbitrum one in chain field
     await this.page.type('#react-select-2-input', 'Arbitrum One');
     await this.page.keyboard.press('Enter');
 
+    //Entering 12 in "You Sell" field
     const inputSelector = 'input.chakra-input.css-lv0ed5';
     await this.page.waitForSelector(inputSelector);
     await this.page.$eval(inputSelector, (input) => (input.value = ''));
@@ -32,6 +36,7 @@ class SwapDefillamaScraper {
   }
 
   async performActions() {
+    //Selecting WBTC
     const btn1 = await this.page.$$('[class="chakra-button css-qjhap"]');
     await btn1[0].click();
     await this.page.type('input.chakra-input.css-s1d1f4', 'wbtc');
@@ -39,11 +44,13 @@ class SwapDefillamaScraper {
     const example = await this.page.$$('[class="sc-b49748d5-3 cjxQGj"]');
     await example[0].click();
 
+    //Selecting USDC
     await btn1[1].click();
     await this.page.waitForSelector('div.List');
     const exam = await this.page.$$('[class="sc-b49748d5-3 cjxQGj"]');
     await exam[4].click();
 
+    //Selecting the options that pop up on right side with some delay because its taking time to load
     await this.page.waitForTimeout(25000);
     const route = await this.page.$$(
       '[class="sc-18d0abec-0 knYyMy RouteWrapper"]'
