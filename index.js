@@ -76,7 +76,7 @@ class SwapDefillamaScraper {
   }
 }
 
-app.get('/scrape', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const scraper = new SwapDefillamaScraper();
     await scraper.scrape();
